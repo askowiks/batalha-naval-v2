@@ -5,23 +5,20 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Scanner entrada = new Scanner(System.in);
-
         int tamanhoTabuleiro = 5;
         int[][] tabuleiro = new int[tamanhoTabuleiro][tamanhoTabuleiro];
-
-
+        String[][] campoDeBatalha = new String[tamanhoTabuleiro][tamanhoTabuleiro];
         exibirTabuleiro(tabuleiro);
         posicionarNavio(tabuleiro);
+        iniciarCampoBatalha(campoDeBatalha);
+        atirar(campoDeBatalha, tabuleiro);
+    }
 
-//
-        //Limpar console e exibir apenas o tabuleiro de batalha (imprimir intervalo)
-
-        String[][] campoDeBatalha = new String[tamanhoTabuleiro][tamanhoTabuleiro];
+    public static void iniciarCampoBatalha (String[][] campoDeBatalha){
         System.out.println(
                 "\n------------------------------------------\n" +
-                "    CAMPO DE BATALHA\n"+
-                "  ║ 0 | 1 | 2 | 3 | 4 |\n" +
+                        "    CAMPO DE BATALHA\n"+
+                        "  ║ 0 | 1 | 2 | 3 | 4 |\n" +
                         "═══════════════════════"
         );
 
@@ -31,13 +28,24 @@ public class Main {
             for (int j = 0; j < campoDeBatalha[i].length; j++) {
                 campoDeBatalha[i][j] = "~";
                 System.out.print(" " + campoDeBatalha[i][j] + " |");
-
             }System.out.print("\n");
         }
+    }
 
-        atirar(campoDeBatalha, tabuleiro);
+    public static void exibirCampoBatalha(String[][] campoDeBatalha){
+        System.out.println(
+                "\n------------------------------------------\n" +
+                        "    CAMPO DE BATALHA\n"+
+                        "  ║ 0 | 1 | 2 | 3 | 4 |\n" +
+                        "═══════════════════════"
+        );
 
-
+        for (int i = 0; i < campoDeBatalha.length; i++) {
+            System.out.print(i + " ║");
+            for (int j = 0; j < campoDeBatalha[i].length; j++) {
+                System.out.print(" " + campoDeBatalha[i][j] + " |");
+            }System.out.print("\n");
+        }
     }
 
     public static void exibirTabuleiro(int[][] tabuleiro){
@@ -68,7 +76,7 @@ public class Main {
         String posicaoLida;
 
         for (int contTiros = 1; contTiros <= 10; contTiros++){
-            System.out.println("Escolha a posição  do seu " + contTiros +"º tiro (separado por \",\" :");
+            System.out.println("Escolha a posição  do seu " + contTiros +"º tiro (separado por \",\")");
             posicaoLida = entrada.nextLine(); //5,9
             var posicaoArray = posicaoLida.trim().split(",");
             horizontal = Integer.parseInt(posicaoArray[0].trim());
@@ -80,21 +88,8 @@ public class Main {
                 campoDeBatalha[horizontal][vertical] = "X";
             }else{campoDeBatalha[horizontal][vertical] = "O";}
 
-            System.out.println(
-                    "\n------------------------------------------\n" +
-                            "    CAMPO DE BATALHA\n"+
-                            "  ║ 0 | 1 | 2 | 3 | 4 |\n" +
-                            "═══════════════════════"
-            );
+           exibirCampoBatalha(campoDeBatalha);
 
-            for (int i = 0; i < campoDeBatalha.length; i++) {
-                System.out.print(i + " ║");
-
-                for (int j = 0; j < campoDeBatalha[i].length; j++) {
-                    System.out.print(" " + campoDeBatalha[i][j] + " |");
-
-                }System.out.print("\n");
-            }
         }
     }
 
@@ -105,7 +100,7 @@ public class Main {
         String posicaoLida;
 
         for (int contNavio = 1; contNavio <= 5; contNavio++){
-            System.out.println("\nEscolha a posição  do seu " + contNavio +"º navio (separado por \",\" :");
+            System.out.println("\nEscolha a posição  do seu " + contNavio +"º navio (separado por \",\")");
             posicaoLida = entrada.nextLine(); //5,9
             var posicaoArray = posicaoLida.trim().split(",");
             horizontal = Integer.parseInt(posicaoArray[0].trim());
