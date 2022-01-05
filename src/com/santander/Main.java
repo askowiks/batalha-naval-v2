@@ -10,37 +10,11 @@ public class Main {
         int tamanhoTabuleiro = 5;
         int[][] tabuleiro = new int[tamanhoTabuleiro][tamanhoTabuleiro];
 
-        System.out.println(
-                "  ║ 0 | 1 | 2 | 3 | 4 |\n" +
-                "═══════════════════════"
-        );
 
-        for (int i = 0; i < tabuleiro.length; i++) {
-            System.out.print(i + " ║");
-
-            for (int j = 0; j < tabuleiro[i].length; j++) {
-                tabuleiro[i][j] = 0;
-                System.out.print(" " + tabuleiro[i][j] + " |");
-
-            }System.out.print("\n");
-        }
-
+        exibirTabuleiro(tabuleiro);
         posicionarNavio(tabuleiro);
 
-        System.out.println(
-                "  ║ 0 | 1 | 2 | 3 | 4 |\n" +
-                "═══════════════════════"
-        );
-        for (int i = 0; i < tabuleiro.length; i++) {
-            System.out.print(i + " ║");
-
-            for (int j = 0; j < tabuleiro[i].length; j++) {
-                System.out.print(" " + tabuleiro[i][j] + " |");
-
-            }
-            System.out.print("\n");
-        }
-
+//
         //Limpar console e exibir apenas o tabuleiro de batalha (imprimir intervalo)
 
         String[][] campoDeBatalha = new String[tamanhoTabuleiro][tamanhoTabuleiro];
@@ -64,9 +38,27 @@ public class Main {
         atirar(campoDeBatalha, tabuleiro);
 
 
+    }
 
+    public static void exibirTabuleiro(int[][] tabuleiro){
 
+        System.out.println(
+             "\n__<->__ TABULEIRO __<->__\n" +
+                "  ║ 0 | 1 | 2 | 3 | 4 |\n" +
+                "═══════════════════════"
+        );
 
+        for (int i = 0; i < tabuleiro.length; i++) {
+            System.out.print(i + " ║");
+
+            for (int j = 0; j < tabuleiro[i].length; j++) {
+
+                if (tabuleiro[i][j] == 0){
+                    System.out.print(" ~ |");
+                }else{ System.out.print("<->|");}
+
+            }System.out.print("\n");
+        }
     }
 
     public static void atirar(String[][] campoDeBatalha, int[][] tabuleiro){
@@ -76,13 +68,15 @@ public class Main {
         String posicaoLida;
 
         for (int contTiros = 1; contTiros <= 10; contTiros++){
-            System.out.println("escolha a posição  do seu " + contTiros +"º tiro (separado por \",\" :");
+            System.out.println("Escolha a posição  do seu " + contTiros +"º tiro (separado por \",\" :");
             posicaoLida = entrada.nextLine(); //5,9
             var posicaoArray = posicaoLida.trim().split(",");
             horizontal = Integer.parseInt(posicaoArray[0].trim());
             vertical = Integer.parseInt(posicaoArray[1].trim());
 
-            if (tabuleiro[horizontal][vertical] == 1) {
+            if (horizontal >= tabuleiro.length || vertical >= tabuleiro.length){
+                System.out.println("Posição inválida!");
+                contTiros--;}else if (tabuleiro[horizontal][vertical] == 1) {
                 campoDeBatalha[horizontal][vertical] = "X";
             }else{campoDeBatalha[horizontal][vertical] = "O";}
 
@@ -111,7 +105,7 @@ public class Main {
         String posicaoLida;
 
         for (int contNavio = 1; contNavio <= 5; contNavio++){
-            System.out.println("Escolha a posição  do seu " + contNavio +"º navio (separado por \",\" :");
+            System.out.println("\nEscolha a posição  do seu " + contNavio +"º navio (separado por \",\" :");
             posicaoLida = entrada.nextLine(); //5,9
             var posicaoArray = posicaoLida.trim().split(",");
             horizontal = Integer.parseInt(posicaoArray[0].trim());
@@ -124,6 +118,7 @@ public class Main {
                 contNavio--;
             }else{
             tabuleiro[horizontal][vertical] = 1;}
+            exibirTabuleiro(tabuleiro);
         }
     }
 
