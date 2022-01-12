@@ -1,4 +1,4 @@
-package com.santander;
+package com.santander.estruturado;
 
 import java.util.Scanner;
 
