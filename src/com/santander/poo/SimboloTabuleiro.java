@@ -7,12 +7,15 @@ public enum SimboloTabuleiro {
     NAVIO_ATINGIDO('X'),
     TIRO_ERRADO('^');
 
-    public char valor;
+    private char valor;
 
-    SimboloMar(char valor) {
+    SimboloTabuleiro(char valor) {
         this.valor = valor;
 
     }
 
+    public char getValor() {
+        return this.valor;
+    }
 
 }
